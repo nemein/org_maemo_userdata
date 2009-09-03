@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema xmlns="http://www.midgard-project.org/repligard/1.4">
+	<type name="org_maemo_userdata_person" table="org_maemo_userdata_person">
+		<property name="id" type="unsigned integer" primaryfield="id">
+			<description>Local non-replication-safe database identifier</description>
+		</property>
+
+		<property name="api_uuid" type="string" index="yes">
+			<description>Identiier used for consistency of api-calls</description>
+		</property>
+	</type>
+
+	<type name="org_maemo_userdata_transaction" table="org_maemo_userdata_transaction">
+		<property name="id" type="unsigned integer" primaryfield="id">
+			<description>Local non-replication-safe database identifier</description>
+		</property>
+
+		<property name="api_uuid" type="string" index="yes">
+			<description>Identiier used for consistency of api-calls</description>
+		</property>
+	</type>
+</Schema>

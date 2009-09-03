@@ -1,0 +1,43 @@
+--- %YAML:1.0
+routes:
+  transactions_since:
+    controller: org_maemo_userdata_controllers_api
+    action: transactions
+    route: /transactions/list/{$uuid}/
+    mimetype: application/json
+    template_entry_point: midcom-show-json
+    allowed_methods:
+      - GET
+  user_by_guid:
+    controller: org_maemo_userdata_controllers_api
+    action: userByUuid
+    route: /user/{$uuid}/
+    mimetype: application/json
+    template_entry_point: midcom-show-json
+    allowed_methods:
+      - GET
+      - POST # edit user
+  user_by_login:
+    controller: org_maemo_userdata_controllers_api
+    action: userByLogin
+    route: /user/by_login/{$login}/
+    mimetype: application/json
+    template_entry_point: midcom-show-json
+    allowed_methods:
+      - GET
+  user_by_email:
+    controller: org_maemo_userdata_controllers_api
+    action: userByEmail
+    route: /user/by_email/{$email}/
+    mimetype: application/json
+    template_entry_point: midcom-show-json
+    allowed_methods:
+      - GET
+  create_user:
+    controller: org_maemo_userdata_controllers_api
+    action: createUser
+    route: /user/
+    mimetype: application/json
+    template_entry_point: midcom-show-json
+    allowed_methods:
+      - POST
