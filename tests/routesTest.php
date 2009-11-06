@@ -11,7 +11,7 @@ require_once('tests/testcase.php');
 /**
  * Test that dispatches all routes of the component
  */
-class org_maemo_userdata_tests_routes extends midcom_tests_testcase
+class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
 {
     
     public function testDispatch()
