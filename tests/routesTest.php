@@ -23,34 +23,34 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
         }
         
         $component_name = 'org_maemo_userdata';
-        $manifest = $_MIDCOM->componentloader->manifests[$component_name];
+        $manifest = $this->_core->componentloader->manifests[$component_name];
         
         // Enter new context
-        $_MIDCOM->context->create();
+        $this->_core->context->create();
         try
         {
-            $_MIDCOM->dispatcher->initialize($component_name);
+            $this->_core->dispatcher->initialize($component_name);
         }
         catch (Exception $e)
         {
-            $_MIDCOM->context->delete();
+            $this->_core->context->delete();
             $this->fail("Component failed to load");
         }
         
-        if (!$_MIDCOM->context->component_instance)
+        if (!$this->_core->context->component_instance)
         {
-            $_MIDCOM->context->delete();
+            $this->_core->context->delete();
             $this->fail("Component failed to load");
         }
 
-        if (!$_MIDCOM->context->component_instance->configuration->exists('routes'))
+        if (!$this->_core->context->component_instance->configuration->exists('routes'))
         {
             // No routes in this component, skip
             if (MIDCOM_TESTS_ENABLE_OUTPUT)
             {
                 echo "no routes found\n";
             }
-            $_MIDCOM->context->delete();
+            $this->_core->context->delete();
             return;
         }
 
@@ -59,7 +59,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
             echo "Running {$component_name}...\n";
         }
 
-        $routes = $_MIDCOM->dispatcher->get_routes();
+        $routes = $this->_core->dispatcher->get_routes();
         
         foreach ($routes as $route_id => $route_configuration)
         {
@@ -73,7 +73,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
                 $route_string = str_replace("{{$match}}", "[{$match}: {$args[$match]}]", $route_string);
             }
 
-            $_MIDCOM->dispatcher->set_route($route_id, $args);
+            $this->_core->dispatcher->set_route($route_id, $args);
             if (MIDCOM_TESTS_ENABLE_OUTPUT)
             {
                 echo "    {$route_id}: {$route_string}\n";
@@ -81,7 +81,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
 
             try
             {
-                $_MIDCOM->dispatcher->dispatch();
+                $this->_core->dispatcher->dispatch();
             }
             catch (Exception $e)
             {
@@ -95,7 +95,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
             {
                 if (MIDCOM_TESTS_ENABLE_OUTPUT)
                 {
-                    echo "        returned keys: " . implode(', ', array_keys($_MIDCOM->context->$component_name)) . "\n";
+                    echo "        returned keys: " . implode(', ', array_keys($this->_core->context->$component_name)) . "\n";
                 }
             }
             catch (Exception $e)
@@ -108,7 +108,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
         }
         
         // Delete the context
-        $_MIDCOM->context->delete();
+        $this->_core->context->delete();
 
         if (MIDCOM_TESTS_ENABLE_OUTPUT)
         {
