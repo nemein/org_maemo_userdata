@@ -11,7 +11,7 @@
  *
  * @package org_maemo_userdata
  */
-class org_maemo_userdata_controllers_index
+class org_maemo_userdata_controllers_api
 {
     public function __construct($instance)
     {
