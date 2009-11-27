@@ -13,32 +13,32 @@
  */
 class org_maemo_userdata_controllers_api
 {
-    public function __construct($instance)
+    public function __construct(midcom_core_component_interface $instance)
     {
         $this->configuration = $instance->configuration;
     }
 
-    public function get_transactions($route_id, &$data, $args)
+    public function get_transactions(array $args)
     {
     }
 
-    public function get_userByLogin($route_id, &$data, $args)
+    public function get_userByLogin(array $args)
     {
     }
 
-    public function get_userByEmail($route_id, &$data, $args)
+    public function get_userByEmail(array $args)
     {
     }
 
-    public function get_userByUuid($route_id, &$data, $args)
+    public function get_userByUuid(array $args)
     {
     }
 
-    public function post_userByUuid($route_id, &$data, $args)
+    public function post_userByUuid(array $args)
     {
     }
 
-    public function post_createUser($route_id, &$data, $args)
+    public function post_createUser(array $args)
     {
     }
 }
