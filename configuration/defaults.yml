@@ -1,5 +1,13 @@
 --- %YAML:1.0
 routes:
+  index: # little help-page
+    controller: org_maemo_userdata_controllers_api
+    action: index
+    route: /
+    mimetype: text/html
+    content_entry_point: omu-index
+    allowed_methods:
+      - GET
   transactions_since:
     controller: org_maemo_userdata_controllers_api
     action: transactions

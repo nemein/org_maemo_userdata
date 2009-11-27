@@ -18,6 +18,10 @@ class org_maemo_userdata_controllers_api
         $this->configuration = $instance->configuration;
     }
 
+    public function get_index()
+    {
+    }
+
     public function get_transactions(array $args)
     {
     }
