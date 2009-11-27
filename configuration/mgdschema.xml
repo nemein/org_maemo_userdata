@@ -6,20 +6,20 @@
 			<description>Local non-replication-safe database identifier</description>
 		</property>
 
-		<property name="api_uuid" type="string" index="yes">
+		<property name="apiuuid" type="string" index="yes">
 			<description>Identiier used for consistency of api-calls</description>
 		</property>
 
 		<!-- external fields -->
-		<property name="m_org_id" type="unsigned integer" index="yes">
+		<property name="morgid" type="unsigned integer" index="yes">
 			<description>Old Maemo.org userid</description>
 		</property>
 
-		<property name="garage_id" type="unsigned integer" index="yes">
+		<property name="garageid" type="unsigned integer" index="yes">
 			<description>Old Maemo.org userid</description>
 		</property>
 
-		<property name="talk_id" type="unsigned integer" index="yes">
+		<property name="talkid" type="unsigned integer" index="yes">
 			<description>Old Talk.Maemo.org userid</description>
 		</property>
 
@@ -117,7 +117,7 @@
 			<description>Local non-replication-safe database identifier</description>
 		</property>
 
-		<property name="api_uuid" type="string" index="yes">
+		<property name="apiuuid" type="string" index="yes">
 			<description>Identiier used for consistency of api-calls</description>
 		</property>
 	</type>
