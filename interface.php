@@ -11,6 +11,6 @@
  *
  * @package org_maemo_userdata
  */
-class org_maemo_userdata extends midcom_core_component_baseclass
+class org_maemo_userdata extends midgardmvc_core_component_baseclass
 {
 }

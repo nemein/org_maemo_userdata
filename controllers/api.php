@@ -13,7 +13,7 @@
  */
 class org_maemo_userdata_controllers_api
 {
-    public function __construct(midcom_core_component_interface $instance)
+    public function __construct(midgardmvc_core_component_interface $instance)
     {
         $this->configuration = $instance->configuration;
     }

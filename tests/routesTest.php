@@ -16,7 +16,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
     
     public function testDispatch()
     {
-        if (MIDCOM_TESTS_ENABLE_OUTPUT)
+        if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
         {
             echo __FUNCTION__ . "\n";
             echo "Loading all routes\n\n";
@@ -46,7 +46,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
         if (!$this->_core->context->component_instance->configuration->exists('routes'))
         {
             // No routes in this component, skip
-            if (MIDCOM_TESTS_ENABLE_OUTPUT)
+            if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
             {
                 echo "no routes found\n";
             }
@@ -54,7 +54,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
             return;
         }
 
-        if (MIDCOM_TESTS_ENABLE_OUTPUT)
+        if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
         {
             echo "Running {$component_name}...\n";
         }
@@ -74,7 +74,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
             }
 
             $this->_core->dispatcher->set_route($route_id, $args);
-            if (MIDCOM_TESTS_ENABLE_OUTPUT)
+            if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
             {
                 echo "    {$route_id}: {$route_string}\n";
             }
@@ -85,7 +85,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
             }
             catch (Exception $e)
             {
-                if (MIDCOM_TESTS_ENABLE_OUTPUT)
+                if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
                 {
                     echo "        " . get_class($e) . ': ' . $e->getMessage() . "\n";
                 }
@@ -93,14 +93,14 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
 
             try
             {
-                if (MIDCOM_TESTS_ENABLE_OUTPUT)
+                if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
                 {
                     echo "        returned keys: " . implode(', ', array_keys($this->_core->context->$component_name)) . "\n";
                 }
             }
             catch (Exception $e)
             {
-                if (MIDCOM_TESTS_ENABLE_OUTPUT)
+                if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
                 {
                     echo "        returned no data\n";
                 }
@@ -110,7 +110,7 @@ class org_maemo_userdata_tests_routesTest extends midcom_tests_testcase
         // Delete the context
         $this->_core->context->delete();
 
-        if (MIDCOM_TESTS_ENABLE_OUTPUT)
+        if (MIDGARDMVC_TESTS_ENABLE_OUTPUT)
         {
             echo "\n";
         }

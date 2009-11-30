@@ -32,7 +32,7 @@ class org_maemo_userdata_tests_all
     {
         $suite = new PHPUnit_Framework_TestSuite('MidCOM org_maemo_userdata');
 
-        $tests = midcom_core_tests_helpers::get_tests(__FILE__, __CLASS__);
+        $tests = midgardmvc_core_tests_helpers::get_tests(__FILE__, __CLASS__);
         foreach ($tests as $test)
         {
             $suite->addTestSuite($test);
