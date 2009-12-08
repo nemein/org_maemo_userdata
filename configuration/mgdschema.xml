@@ -1,124 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Schema xmlns="http://www.midgard-project.org/repligard/1.4">
-	<type name="org_maemo_userdata_person" table="org_maemo_userdata_person">
-		<!-- internal fields -->
-		<property name="id" type="unsigned integer" primaryfield="id">
-			<description>Local non-replication-safe database identifier</description>
-		</property>
+    <type name="org_maemo_userdata_person" table="org_maemo_userdata_person">
+        <!-- internal fields -->
+        <property name="id" type="unsigned integer" primaryfield="id">
+            <description>Local non-replication-safe database identifier</description>
+        </property>
 
-		<property name="apiuuid" type="string" index="yes">
-			<description>Identiier used for consistency of api-calls</description>
-		</property>
+        <property name="apiuuid" type="string" index="yes" unique="yes">
+            <description>Identifier used for consistency of api-calls</description>
+        </property>
 
-		<!-- external fields -->
-		<property name="morgid" type="unsigned integer" index="yes">
-			<description>Old Maemo.org userid</description>
-		</property>
+        <!-- external fields -->
+        <property name="morgid" type="unsigned integer" index="yes" unique="yes">
+            <description>Old Maemo.org userid</description>
+        </property>
 
-		<property name="garageid" type="unsigned integer" index="yes">
-			<description>Old Maemo.org userid</description>
-		</property>
+        <property name="garageid" type="unsigned integer" index="yes" unique="yes">
+            <description>Old Maemo.org userid</description>
+        </property>
 
-		<property name="talkid" type="unsigned integer" index="yes">
-			<description>Old Talk.Maemo.org userid</description>
-		</property>
+        <property name="talkid" type="unsigned integer" index="yes" unique="yes">
+            <description>Old Talk.Maemo.org userid</description>
+        </property>
 
-		<property name="username" type="string">
-			<description></description>
-		</property>
+        <property name="username" type="string" index="yes" unique="yes">
+            <description></description>
+        </property>
 
-		<property name="password" type="string">
-			<description>sha256-encoded password</description>
-		</property>
+        <property name="password" type="string">
+            <description>sha256-encoded password</description>
+        </property>
 
-		<property name="joindate" type="datetime">
-			<description>Date of initial registration</description>
-		</property>
+        <property name="joindate" type="datetime">
+            <description>Date of initial registration</description>
+        </property>
 
-		<property name="title" type="string">
-			<description>Mr., Mrs., Ms., Dr., etc.</description>
-		</property>
+        <property name="title" type="string">
+            <description>Mr., Mrs., Ms., Dr., etc.</description>
+        </property>
 
-		<property name="firstname" type="string">
-			<description></description>
-		</property>
+        <property name="firstname" type="string">
+            <description></description>
+        </property>
 
-		<property name="lastname" type="string">
-			<description></description>
-		</property>
+        <property name="lastname" type="string">
+            <description></description>
+        </property>
 
-		<property name="birthdate" type="datetime">
-			<description></description>
-		</property>
+        <property name="birthdate" type="datetime">
+            <description></description>
+        </property>
 
-		<property name="street" type="string">
-			<description>Street-address</description>
-		</property>
+        <property name="street" type="string">
+            <description>Street-address</description>
+        </property>
 
-		<property name="postcode" type="string">
-			<description></description>
-		</property>
+        <property name="postcode" type="string">
+            <description></description>
+        </property>
 
-		<property name="city" type="string">
-			<description></description>
-		</property>
+        <property name="city" type="string">
+            <description></description>
+        </property>
 
-		<property name="country" type="string">
-			<description></description>
-		</property>
+        <property name="country" type="string">
+            <description></description>
+        </property>
 
-		<property name="ccode" type="string">
-			<description>Country-code? (from garage)</description>
-		</property>
+        <property name="ccode" type="string">
+            <description>Country-code? (from garage)</description>
+        </property>
 
-		<property name="email" type="string">
-			<description></description>
-		</property>
+        <property name="email" type="string">
+            <description></description>
+        </property>
 
-		<property name="phone" type="string">
-			<description></description>
-		</property>
+        <property name="phone" type="string">
+            <description></description>
+        </property>
 
-		<property name="fax" type="string">
-			<description></description>
-		</property>
+        <property name="fax" type="string">
+            <description></description>
+        </property>
 
-		<property name="homepage" type="string">
-			<description></description>
-		</property>
+        <property name="homepage" type="string">
+            <description></description>
+        </property>
 
-		<property name="jabber" type="string">
-			<description></description>
-		</property>
+        <property name="jabber" type="string">
+            <description></description>
+        </property>
 
-		<property name="icq" type="string">
-			<description></description>
-		</property>
+        <property name="icq" type="string">
+            <description></description>
+        </property>
 
-		<property name="aim" type="string">
-			<description></description>
-		</property>
+        <property name="aim" type="string">
+            <description></description>
+        </property>
 
-		<property name="yahoo" type="string">
-			<description>Yahoo IM account</description>
-		</property>
+        <property name="yahoo" type="string">
+            <description>Yahoo IM account</description>
+        </property>
 
-		<property name="msn" type="string">
-			<description></description>
-		</property>
+        <property name="msn" type="string">
+            <description></description>
+        </property>
 
-		<property name="skype" type="string">
-			<description></description>
-		</property>
-	</type>
+        <property name="skype" type="string">
+            <description></description>
+        </property>
+    </type>
 
-	<type name="org_maemo_userdata_transaction" table="org_maemo_userdata_transaction">
-		<property name="id" type="unsigned integer" primaryfield="id">
-			<description>Local non-replication-safe database identifier</description>
-		</property>
+    <type name="org_maemo_userdata_transaction" table="org_maemo_userdata_transaction">
+        <property name="id" type="unsigned integer" primaryfield="id">
+            <description>Local non-replication-safe database identifier</description>
+        </property>
 
-		<property name="apiuuid" type="string" index="yes">
-			<description>Identiier used for consistency of api-calls</description>
-		</property>
-	</type>
+        <property name="apiuuid" type="string" index="yes">
+            <description>Identifier used for consistency of api-calls</description>
+        </property>
+
+        <property name="useruuid" type="string" index="yes">
+            <description>User-identifier used for consistency of api-calls ("soft" foreign key)</description>
+        </property>
+
+        <property name="action" type="string" index="yes">
+            <description>Can take values: "create", "update", "delete"</description>
+        </property>
+    </type>
+
 </Schema>
