@@ -155,5 +155,63 @@ class org_maemo_userdata extends midgardmvc_core_component_baseclass
         $trx->useruuid = $person->apiuuid;
         $trx->action = $action;
         $trx->create();
+
+        self::broadcastTransaction($trx);
+    }
+
+    private static function broadcastTransaction(org_maemo_userdata_transaction $trx)
+    {
+        $cfg = midgardmvc_core::get_instance()->configuration;
+
+        $user = self::userByUuid($trx->useruuid);
+        $data = array(
+            'uuid'      => $trx->apiuuid,
+            'action'    => $trx->action,
+            'timestamp' => $trx->created->format(DATE_W3C),
+            'data'      => self::personToArray($user),
+        );
+
+        foreach ($cfg->webhooks as $webhook) {
+            // FIXME: use some kind of queue
+            self::sendHttpRequest($webhook['url'], $data);
+        }
+    }
+
+    private static function sendHttpRequest($url, array $data)
+    {
+        $ch = curl_init();
+
+        $res = curl_setopt($ch, CURLOPT_URL, $url);
+
+        if (strpos($url, 'https://') === 0) {
+            throw new Exception('FIXME');
+            $res = curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            $res = curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+            // $res = curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
+            $res = curl_setopt($ch, CURLOPT_SSLKEY, dirname(__FILE__).'/configuration/client.key');
+            $res = curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'password');
+            $res = curl_setopt($ch, CURLOPT_SSLCERT, dirname(__FILE__).'/configuration/client.cer');
+            $res = curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'password');
+        }
+
+        $res = curl_setopt($ch, CURLOPT_HEADER, 0);
+        $res = curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $res = curl_setopt($ch, CURLOPT_POST,           1);
+        $res = curl_setopt($ch, CURLOPT_POSTFIELDS,     json_encode($data));
+        $res = curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: application/json'));
+
+        // grab URL and pass it to the browser
+        $result = curl_exec($ch);
+
+        if (false === $result) {
+            echo curl_error($ch)."\n";
+            curl_close($ch);
+            return array(false);
+        }
+
+        curl_close($ch);
+
+        return json_decode($result);
     }
 }

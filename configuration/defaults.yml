@@ -1,4 +1,8 @@
---- %YAML:1.0
+---
+webhooks:
+  -
+    url: http://www.example.com/callback
+    fields: [username, password]
 routes:
   index: # little help-page
     controller: org_maemo_userdata_controllers_api
