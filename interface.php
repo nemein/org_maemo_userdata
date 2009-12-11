@@ -78,7 +78,7 @@ class org_maemo_userdata extends midgardmvc_core_component_baseclass
 
     public static function userByUuid($uuid)
     {
-        $qb = new midgard_query_builder('org_maemo_userdata_person');
+        $qb = org_maemo_userdata_person::new_query_builder();
         $qb->add_constraint('apiuuid', '=', $uuid);
 
         if ($qb->count() != 1)

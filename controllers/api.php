@@ -25,7 +25,7 @@ class org_maemo_userdata_controllers_api
 
     public function get_transactions(array $args)
     {
-        $qb = new midgard_query_builder('org_maemo_userdata_transaction');
+        $qb = org_maemo_userdata_transaction::new_query_builder();
         $qb->add_constraint('apiuuid', '=', $args['uuid']);
 
         if ($qb->count() != 1)
@@ -37,7 +37,7 @@ class org_maemo_userdata_controllers_api
             $result = $qb->execute();
             $since_trx = $result[0];
 
-            $qb = new midgard_query_builder('org_maemo_userdata_transaction');
+            $qb = org_maemo_userdata_transaction::new_query_builder();
             $qb->add_constraint('metadata.created', '>', $since_trx->metadata_created);
             // FIXME: add order
             $trxs = $qb->execute();
@@ -60,7 +60,7 @@ class org_maemo_userdata_controllers_api
 
     public function get_userByLogin(array $args)
     {
-        $qb = new midgard_query_builder('org_maemo_userdata_person');
+        $qb = org_maemo_userdata_person::new_query_builder();
         $qb->add_constraint('username', '=', $args['login']);
 
         if ($qb->count() != 1)
@@ -76,7 +76,7 @@ class org_maemo_userdata_controllers_api
 
     public function get_userByEmail(array $args)
     {
-        $qb = new midgard_query_builder('org_maemo_userdata_person');
+        $qb = org_maemo_userdata_person::new_query_builder();
         $qb->add_constraint('email', '=', $args['email']);
 
         if ($qb->count() != 1)
