@@ -130,4 +130,18 @@
         </property>
     </type>
 
+    <type name="org_maemo_userdata_webhooks_queue" table="org_maemo_userdata_webhooks_queue">
+        <property name="id" type="unsigned integer" primaryfield="id">
+            <description>Local non-replication-safe database identifier</description>
+        </property>
+
+        <property name="url" type="string" index="yes">
+            <description>webhook-url</description>
+        </property>
+
+        <property name="payload" type="text">
+            <description>json-encoded payload</description>
+        </property>
+    </type>
+
 </Schema>

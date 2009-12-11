@@ -164,20 +164,45 @@ class org_maemo_userdata extends midgardmvc_core_component_baseclass
         $cfg = midgardmvc_core::get_instance()->configuration;
 
         $user = self::userByUuid($trx->useruuid);
-        $data = array(
+        $data = json_encode(array(
             'uuid'      => $trx->apiuuid,
             'action'    => $trx->action,
             'timestamp' => $trx->created->format(DATE_W3C),
             'data'      => self::personToArray($user),
-        );
+        ));
 
         foreach ($cfg->webhooks as $webhook) {
-            // FIXME: use some kind of queue
-            self::sendHttpRequest($webhook['url'], $data);
+            $que = new org_maemo_userdata_webhooks_queue();
+            $que->url = $webhook['url'];
+            $que->payload = $data;
+            $que->create();
         }
     }
 
-    private static function sendHttpRequest($url, array $data)
+    public static function sendQueuedRequests()
+    {
+        // TODO: execute this method! ;)
+        $qb = org_maemo_userdata_webhooks_queue::new_query_builder();
+        $qb->add_order('id');
+        $queued = $qb->execute();
+
+        $stuck_urls = array();
+
+        foreach ($queued as $item) {
+            if (!in_array($item->url, $stuck_urls)) {
+                $res = self::sendHttpRequest($item->url, $item->payload);
+
+                if (false === $res) {
+                    // error. will retry later. blocking this webhook for now
+                    $stuck_urls[] = $item->url;
+                } else {
+                    $item->delete();
+                }
+            }
+        }
+    }
+
+    private static function sendHttpRequest($url, $json)
     {
         $ch = curl_init();
 
@@ -198,7 +223,7 @@ class org_maemo_userdata extends midgardmvc_core_component_baseclass
         $res = curl_setopt($ch, CURLOPT_HEADER, 0);
         $res = curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $res = curl_setopt($ch, CURLOPT_POST,           1);
-        $res = curl_setopt($ch, CURLOPT_POSTFIELDS,     json_encode($data));
+        $res = curl_setopt($ch, CURLOPT_POSTFIELDS,     $json);
         $res = curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: application/json'));
 
         // grab URL and pass it to the browser
@@ -207,11 +232,18 @@ class org_maemo_userdata extends midgardmvc_core_component_baseclass
         if (false === $result) {
             echo curl_error($ch)."\n";
             curl_close($ch);
-            return array(false);
+            return false;
         }
 
         curl_close($ch);
 
-        return json_decode($result);
+        $arr = json_decode($result);
+
+        if (is_array($arr) and is_bool($arr[0]))
+            return $arr[0];
+        elseif (is_bool($arr))
+            return $arr;
+
+        throw new Exception('Unexpected response: '.$result);
     }
 }
