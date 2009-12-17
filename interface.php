@@ -167,7 +167,7 @@ class org_maemo_userdata extends midgardmvc_core_component_baseclass
         $data = json_encode(array(
             'uuid'      => $trx->apiuuid,
             'action'    => $trx->action,
-            'timestamp' => $trx->created->format(DATE_W3C),
+            'timestamp' => $trx->metadata->created->format(DATE_W3C),
             'data'      => self::personToArray($user),
         ));
 

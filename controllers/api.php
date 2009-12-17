@@ -38,7 +38,7 @@ class org_maemo_userdata_controllers_api
             $since_trx = $result[0];
 
             $qb = org_maemo_userdata_transaction::new_query_builder();
-            $qb->add_constraint('metadata.created', '>', $since_trx->metadata_created);
+            $qb->add_constraint('metadata.created', '>', $since_trx->metadata->created);
             // FIXME: add order
             $trxs = $qb->execute();
 
@@ -51,7 +51,7 @@ class org_maemo_userdata_controllers_api
                 $this->data[] = array(
                     'uuid'      => $trx->apiuuid,
                     'action'    => $trx->action,
-                    'timestamp' => $trx->created->format(DATE_W3C),
+                    'timestamp' => $trx->metadata->created->format(DATE_W3C),
                     'data'      => org_maemo_userdata::personToArray($user),
                 );
             }
