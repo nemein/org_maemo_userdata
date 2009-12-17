@@ -122,7 +122,7 @@ class org_maemo_userdata_controllers_api
             {
                 if (in_array($k, $_allowed))
                 {
-                    $obj->$k = $v;
+                    $user->$k = $v;
                 }
             }
             $user->update();
