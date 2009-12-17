@@ -70,7 +70,7 @@ class org_maemo_userdata_controllers_api
         else
         {
             $result = $qb->execute();
-            $this->data = json_encode(org_maemo_userdata::personToArray($result[0]));
+            $this->data = org_maemo_userdata::personToArray($result[0]);
         }
     }
 
@@ -86,7 +86,7 @@ class org_maemo_userdata_controllers_api
         else
         {
             $result = $qb->execute();
-            $this->data = json_encode(org_maemo_userdata::personToArray($result[0]));
+            $this->data = org_maemo_userdata::personToArray($result[0]);
         }
     }
 
@@ -100,7 +100,7 @@ class org_maemo_userdata_controllers_api
         }
         else
         {
-            $this->data = json_encode(org_maemo_userdata::personToArray($user));
+            $this->data = org_maemo_userdata::personToArray($user);
         }
     }
 
