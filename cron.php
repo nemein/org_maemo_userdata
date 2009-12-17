@@ -15,15 +15,20 @@ function sendQueuedRequests()
     foreach ($queued as $item) {
         if (!in_array($item->url, $stuck_urls)) {
             echo "sending item #".$item->id.' to "'.$item->url.'"'."\n";
-            $res = _sendHttpRequest($item->url, $item->payload);
 
-            if (false === $res) {
+            try {
+                $res = _sendHttpRequest($item->url, $item->payload);
+
+                if (false === $res) {
+                    throw new Exception();
+                } else {
+                    $item->delete();
+                    echo "-> ok\n";
+                }
+            } catch (Exception $e) {
                 // error. will retry later. blocking this webhook for now
                 $stuck_urls[] = $item->url;
                 echo "-> url didn't answer in a meaningful way. skipping it for now\n";
-            } else {
-                $item->delete();
-                echo "-> ok\n";
             }
         }
     }
