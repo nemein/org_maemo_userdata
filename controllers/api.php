@@ -127,7 +127,7 @@ class org_maemo_userdata_controllers_api
             }
             $user->update();
 
-            org_maemo_userdata::registerTransaction($obj, 'update');
+            org_maemo_userdata::registerTransaction($user, 'update');
 
             $this->data = array(true);
         }
