@@ -100,7 +100,7 @@ class org_maemo_userdata_controllers_api
         }
         else
         {
-            $this->data = json_encode(org_maemo_userdata::personToArray($result[0]));
+            $this->data = json_encode(org_maemo_userdata::personToArray($user));
         }
     }
 
