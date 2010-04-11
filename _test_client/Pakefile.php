@@ -61,8 +61,11 @@ function run_import_users($task, $args)
         return false;
     }
 
-    $data = pakeYaml::load($args[0]);
+    pake_echo_comment("Reading file. It can take awhile…");
+    $str = file_get_contents($args[0]);
+    $data = pakeYaml::loadString($str);
 
+    pake_echo_comment("Starting import…");
     foreach ($data as $row) {
         pake_echo_action('user+', $row['login']);
         _create_user($row['login'], $row['password'], $row['data']);
