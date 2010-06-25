@@ -144,6 +144,16 @@ class org_maemo_userdata_controllers_api
             return;
         }
 
+        $qb = org_maemo_userdata_person::new_query_builder();
+        $qb->add_constraint('username', '=', $args['login']);
+
+        if ($qb->count() > 0)
+        {
+            // already added. should we update, instead?
+            $this->data = array(false);
+            return;
+        }
+
         $obj = new org_maemo_userdata_person();
         $obj->apiuuid = org_maemo_userdata::generate_UUID();
         $_allowed = org_maemo_userdata::getListOfUserFields();
