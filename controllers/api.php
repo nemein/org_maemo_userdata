@@ -145,7 +145,7 @@ class org_maemo_userdata_controllers_api
         }
 
         $qb = org_maemo_userdata_person::new_query_builder();
-        $qb->add_constraint('username', '=', $args['username']);
+        $qb->add_constraint('username', '=', $user_data['username']);
 
         if ($qb->count() > 0)
         {
