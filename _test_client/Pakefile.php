@@ -66,9 +66,15 @@ function run_import_users($task, $args)
     $data = pakeYaml::loadString($str);
 
     pake_echo_comment("Starting import…");
-    foreach ($data as $row) {
-        pake_echo_action('user+', $row['login']);
-        _create_user($row['login'], $row['password'], $row['data']);
+    $len = count($data);
+    for ($i = 0; $i < $len; $i++) {
+        $row = $data[$i];
+
+        if (_create_user($row['login'], $row['password'], $row['data'])) {
+            pake_echo_action('user+', "({$i} of {$len}) ".$row['login']);
+        } else {
+            pake_echo_comment('already exists: '."({$i} of {$len}) ".$row['login']);
+        }
     }
 }
 
